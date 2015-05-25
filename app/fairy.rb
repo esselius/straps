@@ -7,26 +7,26 @@ class Fairy
     @topic = client.create_topic( name: config.prefix )
   end
 
-  def arn
+  def topic_arn
     @topic[:topic_arn]
   end
 
   def subscribe(protocol, endpoint)
     client.subscribe(
-      topic_arn: arn,
+      topic_arn: topic_arn,
       protocol: protocol,
       endpoint: endpoint
     )
   end
 
-  def unsubscribe(subscription_arn)
+  def unsubscribe(arn)
     client.unsubscribe(
-      subscription_arn: subscription_arn
+      subscription_arn: arn
     )
   rescue Aws::SNS::Errors::InvalidParameter
   end
 
   def delete
-    client.delete_topic( topic_arn: arn )
+    client.delete_topic( topic_arn: topic_arn )
   end
 end

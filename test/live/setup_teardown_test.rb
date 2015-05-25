@@ -13,22 +13,23 @@ class TestSetupTeardown < Minitest::Test
     sqs_client = Aws::SQS::Client.new(region: region)
 
     # Instanciate classes
+    @unicorn = Unicorn.new(sqs_client, @fenix)
     @hades   = Hades.new(asg_client, @fenix)
     @fairy   = Fairy.new(sns_client, @fenix)
-    @unicorn = Unicorn.new(sqs_client, @fenix)
 
     # Subscribe sqs queue to sns topic
-    @fairy.subscribe('sqs', @unicorn.arn)
+    @unicorn.allow(@fairy.topic_arn)
+    @fairy.subscribe('sqs', @unicorn.queue_arn)
 
     # Setup
-    @hades.setup(@fairy.arn)
+    @hades.setup(@fairy.topic_arn)
 
     # Teardown
-    #@hades.teardown(@fairy.arn)
+    @hades.teardown(@fairy.topic_arn)
 
     # Unsubscribe and delete sqs queue and sns topic
-    #@fairy.unsubscribe(@unicorn.arn)
-    #@fairy.delete
-    #@unicorn.delete
+    @fairy.unsubscribe(@unicorn.queue_arn)
+    @fairy.delete
+    @unicorn.delete
   end
 end
