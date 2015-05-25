@@ -1,8 +1,8 @@
+# Use latest official ruby image as base
 FROM ruby:2.2
-MAINTAINER Peter Esselius
 
 # Create app source directory
-RUN mkdir /app
+RUN mkdir -p /app/bin
 
 # Use app dir as current dir
 WORKDIR /app
