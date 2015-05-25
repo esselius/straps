@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -eou pipefail
+
+test_files=$(for f in test/*_test.rb; do echo "-r$f "; done)
+
+ruby -I/app $test_files -e exit
