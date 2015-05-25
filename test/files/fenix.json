@@ -1,0 +1,10 @@
+{
+  "prefix": "straps",
+  "groups": [
+    {
+      "name": "async",
+      "ami": "ami-cf7a12b8",
+      "instance_type": "t2.micro"
+    }
+  ]
+}

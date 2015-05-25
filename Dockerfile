@@ -1,6 +1,9 @@
 # Use latest official ruby image as base
 FROM ruby:2.2
 
+# This is me yo
+MAINTAINER Peter Esselius
+
 # Create app source directory
 RUN mkdir -p /app/bin
 
