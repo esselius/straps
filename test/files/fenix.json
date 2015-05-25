@@ -4,7 +4,7 @@
     {
       "name": "async",
       "ami": "ami-cf7a12b8",
-      "instance_type": "t2.micro"
+      "instance_type": "m1.small"
     }
   ]
 }

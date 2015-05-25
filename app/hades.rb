@@ -35,6 +35,7 @@ class Hades
     client.delete_launch_configuration(
       launch_configuration_name: config[:launch_configuration_name]
     )
+  rescue Aws::AutoScaling::Errors::ValidationError
   end
 
   def create_asg(config)
@@ -47,6 +48,7 @@ class Hades
       auto_scaling_group_name: config[:auto_scaling_group_name],
       force_delete: true
     )
+  rescue Aws::AutoScaling::Errors::ValidationError
   end
 
   def configure_asg_notifications(config, topic_arn)
@@ -68,5 +70,6 @@ class Hades
       auto_scaling_group_name: config[:auto_scaling_group_name],
       topic_arn: topic_arn
     )
+  rescue Aws::AutoScaling::Errors::ValidationError
   end
 end
