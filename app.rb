@@ -9,7 +9,6 @@ require_relative 'app/aws_asg'
 require_relative 'app/aws_lc'
 
 # Aws Service classes
-require_relative 'app/fenix'
 require_relative 'app/hades'
 require_relative 'app/fairy'
 require_relative 'app/unicorn'
