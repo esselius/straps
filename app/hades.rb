@@ -1,27 +1,27 @@
 class Hades
   include Concord.new(:client, :config)
 
+  def region
+    client.config[:region]
+  end
+
   def setup(topic)
-    config.each do |group|
-      lc = AwsLaunchConfiguration.new(group)
-      create_lc(lc.config)
+    lc = AwsLaunchConfiguration.new(region, config)
+    create_lc(lc.config)
 
-      asg = AwsAutoscalingGroup.new(group, lc)
-      create_asg(asg.config)
+    asg = AwsAutoscalingGroup.new(region, config, lc)
+    create_asg(asg.config)
 
-      configure_asg_notifications(asg.config, topic)
-    end
+    configure_asg_notifications(asg.config, topic)
   end
 
   def teardown(topic)
-    config.each do |group|
-      lc = AwsLaunchConfiguration.new(group)
-      asg = AwsAutoscalingGroup.new(group, lc)
+    lc = AwsLaunchConfiguration.new(region, config)
+    asg = AwsAutoscalingGroup.new(region, config, lc)
 
-      remove_asg_notifications(asg.config, topic)
-      remove_asg(asg.config)
-      remove_lc(lc.config)
-    end
+    remove_asg_notifications(asg.config, topic)
+    remove_asg(asg.config)
+    remove_lc(lc.config)
   end
 
   private
@@ -53,16 +53,16 @@ class Hades
 
   def configure_asg_notifications(config, topic_arn)
     client.put_notification_configuration({
-        auto_scaling_group_name: config[:auto_scaling_group_name],
-        topic_arn: topic_arn,
-        notification_types: [
-          "autoscaling:EC2_INSTANCE_LAUNCH",
-          "autoscaling:EC2_INSTANCE_LAUNCH_ERROR",
-          "autoscaling:EC2_INSTANCE_TERMINATE",
-          "autoscaling:EC2_INSTANCE_TERMINATE_ERROR",
-          "autoscaling:TEST_NOTIFICATION"
-        ]
-      })
+      auto_scaling_group_name: config[:auto_scaling_group_name],
+      topic_arn: topic_arn,
+      notification_types: [
+        "autoscaling:EC2_INSTANCE_LAUNCH",
+        "autoscaling:EC2_INSTANCE_LAUNCH_ERROR",
+        "autoscaling:EC2_INSTANCE_TERMINATE",
+        "autoscaling:EC2_INSTANCE_TERMINATE_ERROR",
+        "autoscaling:TEST_NOTIFICATION"
+      ]
+    })
   end
 
   def remove_asg_notifications(config, topic_arn)

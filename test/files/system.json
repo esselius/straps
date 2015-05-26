@@ -1,0 +1,12 @@
+{
+  "regions": [ "eu-west-1", "eu-central-1" ],
+  "prefix": "system",
+  "containers": [
+    {
+      "name": "system",
+      "instance_type": "t2.micro",
+      "image": "esselius/straps",
+      "command": "system"
+    }
+  ]
+}

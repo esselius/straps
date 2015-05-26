@@ -4,7 +4,7 @@ class Fairy
   def initialize(client, config)
     @client = client
     @config = config
-    @topic = client.create_topic( name: config.prefix )
+    @topic = client.create_topic( name: config.fetch('prefix') )
   end
 
   def topic_arn

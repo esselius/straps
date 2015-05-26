@@ -3,7 +3,7 @@ class Unicorn
 
   def initialize(client, config)
     @client = client
-    @queue = client.create_queue( queue_name: config.prefix )
+    @queue = client.create_queue( queue_name: config.fetch('prefix') )
   end
 
   def url
