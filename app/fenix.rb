@@ -1,8 +1,8 @@
 class Fenix
-  include Concord.new(:filename)
+  include Concord.new(:data)
 
-  def data
-    @data ||= JSON.parse(File.read(filename))
+  def region
+    data.fetch('region')
   end
 
   def prefix

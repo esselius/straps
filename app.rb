@@ -10,6 +10,8 @@ require_relative 'app/hades'
 require_relative 'app/fairy'
 require_relative 'app/unicorn'
 
+require_relative 'app/chekov'
+
 class App
 
 end

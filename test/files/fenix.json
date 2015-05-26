@@ -1,5 +1,6 @@
 {
   "prefix": "straps",
+  "region": "eu-west-1",
   "groups": [
     {
       "name": "async",
