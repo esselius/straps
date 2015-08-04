@@ -1,24 +1,11 @@
 require_relative 'test_helper'
 
 class TestSetupTeardown < Minitest::Test
-  def test_can_setup
-    region = 'eu-west-1'
+  def test_can_bootstrap_system
+    config = File.read('test/files/system.json')
+    uhura = Uhura.new(config)
 
-    # Read config
-    @fenix = Fenix.new(LIVE_TEST_FILE)
-
-    # Create aws clients
-    asg_client = Aws::AutoScaling::Client.new(region: region)
-    sns_client = Aws::SNS::Client.new(region: region)
-
-    # Instanciate classes
-    @hades = Hades.new(asg_client, @fenix)
-    @fairy = Fairy.new(sns_client, @fenix)
-
-    # Setup
-    @hades.setup(@fairy.arn)
-
-    # Teardown
-    @hades.teardown(@fairy.arn)
+    uhura.setup
+    uhura.teardown
   end
 end

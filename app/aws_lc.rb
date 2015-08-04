@@ -1,12 +1,17 @@
 class AwsLaunchConfiguration
-  include Concord.new(:options)
+  include Concord.new(:region, :options)
 
   def name
     options.fetch('name')
   end
 
   def ami
-    options.fetch('ami')
+    case region
+    when 'eu-west-1'
+      'ami-cf7a12b8'
+    when 'eu-central-1'
+      'ami-5ac5fa47'
+    end
   end
 
   def instance_type

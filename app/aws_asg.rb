@@ -1,5 +1,5 @@
 class AwsAutoscalingGroup
-  include Concord.new(:options, :lc)
+  include Concord.new(:region, :options, :lc)
 
   def name
     options.fetch('name')
@@ -14,7 +14,12 @@ class AwsAutoscalingGroup
   end
 
   def availability_zones
-    ['eu-west-1a']
+    case region
+    when 'eu-west-1'
+      ['eu-west-1a', 'eu-west-1b', 'eu-west-1c']
+    when 'eu-central-1'
+      ['eu-central-1a', 'eu-central-1b']
+    end
   end
 
   def config

@@ -13,7 +13,7 @@ test:
 # Build, run live tests and clean up
 live-test:
 	@$(MAKE)  build    IMAGE=$(IMAGE) REDIR=">/dev/null"
-	@-$(MAKE) run 		 IMAGE=$(IMAGE) COMMAND="live-test"
+	@-$(MAKE) run 		 IMAGE=$(IMAGE) OPTS="-e ENVIRONMENT=production" COMMAND="live-test"
 
 # Pull base image, build, run tests, push to registry and clean up
 deploy:
